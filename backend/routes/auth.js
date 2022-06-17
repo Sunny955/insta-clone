@@ -3,11 +3,18 @@ const router = express.Router();
 const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const requireLogin = require("../middleware/requireLogin");
+
 //Get all users
 router.get("/", (req, res) => {
   User.find({}, (err, data) => {
     return res.status(200).json(data);
   });
+});
+
+//Protected route for signed in users
+router.get("/protected", requireLogin, (req, res) => {
+  res.send("Passed on our authorization!!");
 });
 
 // Signup User
