@@ -12,6 +12,7 @@ DBConnect();
 
 // Routes
 app.use("/", require("./routes/auth"));
+app.use("/", require("./routes/post"));
 
 app.listen(PORT, () => {
   console.log(`App is running on ${PORT}`);

@@ -13,9 +13,9 @@ router.get("/", (req, res) => {
 });
 
 //Protected route for signed in users
-router.get("/protected", requireLogin, (req, res) => {
-  res.send("Passed on our authorization!!");
-});
+// router.get("/protected", requireLogin, (req, res) => {
+//   res.send("Passed on our authorization!!");
+// });
 
 // Signup User
 router.post("/signup", async (req, res) => {
@@ -78,7 +78,9 @@ router.post("/signin", async (req, res) => {
     }
 
     if (result === true) {
-      const token = jwt.sign({ _id: data._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ _id: data._id }, process.env.JWT_SECRET, {
+        expiresIn: "7d",
+      });
       res.json({ token });
     } else {
       res.status(422).json({
